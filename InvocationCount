@@ -1,0 +1,69 @@
+Testing.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test  name="Test1">
+    <classes>
+    
+      <class name="testcase.CreateLead"/>
+   
+    </classes>
+  </test> <!-- Test1 -->
+</suite> <!-- Suite -->
+
+
+BaseClass.java
+
+package testcase;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class BaseClass
+{ 
+	public ChromeDriver driver;
+	@BeforeMethod
+	public void precondion()
+	{
+	WebDriverManager.chromedriver().setup();
+	 driver = new ChromeDriver();
+	driver.manage().window().maximize();
+	driver.get("http://leaftaps.com/opentaps/");
+	//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
+	driver.findElement(By.id("username")).sendKeys("DemoSalesManager");
+	driver.findElement(By.id("password")).sendKeys("crmsfa");
+	driver.findElement(By.className("decorativeSubmit")).click();
+	driver.findElement(By.linkText("CRM/SFA")).click();
+	driver.findElement(By.linkText("Leads")).click();
+	}
+	@AfterMethod
+	public void postcondition()
+	{
+		driver.close();
+	}
+}
+
+CreateLead.java
+package testcase;
+import org.testng.annotations.Test;
+import org.openqa.selenium.By;
+
+public class CreateLead extends BaseClass{
+    @Test(invocationCount=3) 
+	public  void runcreatelead(String cname,String fname,String lname)throws InterruptedException {    	
+    	  
+		driver.findElement(By.linkText("Create Lead")).click();
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys(cname);
+		driver.findElement(By.id("createLeadForm_firstName")).sendKeys(fname);
+		driver.findElement(By.id("createLeadForm_lastName")).sendKeys(lname);
+		driver.findElement(By.name("submitButton")).click();
+	}
+  }
