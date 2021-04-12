@@ -58,12 +58,12 @@ import org.openqa.selenium.By;
 
 public class CreateLead extends BaseClass{
     @Test(invocationCount=3) 
-	public  void runcreatelead(String cname,String fname,String lname)throws InterruptedException {    	
+	public  void runcreatelead()throws InterruptedException {    	
     	  
 		driver.findElement(By.linkText("Create Lead")).click();
-		driver.findElement(By.id("createLeadForm_companyName")).sendKeys(cname);
-		driver.findElement(By.id("createLeadForm_firstName")).sendKeys(fname);
-		driver.findElement(By.id("createLeadForm_lastName")).sendKeys(lname);
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys("CTS");
+		driver.findElement(By.id("createLeadForm_firstName")).sendKeys("Mano");
+		driver.findElement(By.id("createLeadForm_lastName")).sendKeys("Bala");
 		driver.findElement(By.name("submitButton")).click();
 	}
   }
