@@ -1,0 +1,29 @@
+package testcase;
+
+import java.io.IOException;
+
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ReadExcel {
+
+	public static void main(String[] args) throws IOException{
+		
+		// TODO Auto-generated method stub
+		XSSFWorkbook wb=new XSSFWorkbook("./data/Book1.xlsx");
+		XSSFSheet ws=wb.getSheet("Sheet1");
+		int rownum=ws.getLastRowNum();
+		int cell =ws.getRow(1).getLastCellNum();
+		for(int i=1;i<=rownum;i++)
+		{
+			for(int j=0;j<cell;j++)
+			{
+				String val=ws.getRow(i).getCell(j).getStringCellValue();
+				System.out.println(val);
+			}
+		}
+   wb.close();
+	}
+
+}
